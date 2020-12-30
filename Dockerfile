@@ -23,11 +23,13 @@ ENV MYSQL_USER_DB=node_map
 ENV APACHE_ROOT=meshmap/webpage
 
 # Git repo for the meshmap web app:
-RUN git clone https://mapping.kg6wxc.net/git/meshmap
+# RUN git clone https://mapping.kg6wxc.net/git/meshmap
+COPY meshmap meshmap/
 
-COPY scripts scripts
+COPY meshmap-docker/scripts scripts
 RUN chmod +x scripts/*.sh
-RUN cp scripts/supervisor-meshmap.conf /etc/supervisor/conf.d/supervisor-meshmap.conf
+COPY meshmap-docker/supervisord/supervisord.conf /etc/supervisor/supervisord.conf
+COPY meshmap-docker/supervisord/supervisor-meshmap.conf /etc/supervisor/conf.d/supervisor-meshmap.conf
 
 # Allows us to override the startup cmd at runtime:
 ENTRYPOINT ["./scripts/docker-entrypoint.sh"]

@@ -15,7 +15,7 @@ if [ "$1" = "meshmap" ]; then
   echo "Starting meshmap"
 
   # 'app' is a Docker volume, so we can't copy this data over during build time:
-  cp -pr meshmap app
+  #cp -pr meshmap app
 
   # Start supervisor, et al:
   ./run.sh

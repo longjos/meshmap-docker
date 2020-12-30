@@ -1,0 +1,19 @@
+version: "2"
+volumes:
+  meshmap-mysql:
+services:
+  meshmap:
+    build:
+      context: ..
+      dockerfile: ./meshmap-docker/Dockerfile
+    hostname: meshmap
+    restart: always
+    ports:
+      - "8888:80"
+      - "3306:3306"
+    volumes:
+      - "meshmap-mysql:/var/lib/mysql"
+      - "../meshmap:/app/meshmap"
+    environment:
+      MYSQL_ADMIN_PASS: "changeme"
+      MYSQL_USER_PASS: "changeme"
